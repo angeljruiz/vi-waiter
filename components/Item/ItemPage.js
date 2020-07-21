@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { Formik } from "formik";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Card } from "react-native-elements";
 
 import AppText from "../default/AppText";
 import ItemSection from "./ItemSection";
 import AppTextInput from "../default/AppTextInput";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function ItemPage({ route, navigation }) {
   const { name, description, price, sections } = route.params.item;
@@ -13,10 +14,10 @@ export default function ItemPage({ route, navigation }) {
   return (
     <View style={styles.ItemPage}>
       <ScrollView>
-        <View style={styles.Header}>
+        <Card>
           <AppText style={styles.HeaderText}>{name}</AppText>
           <AppText style={styles.HeaderDescription}>{description}</AppText>
-        </View>
+        </Card>
         {sections.map((section, index) => (
           <ItemSection section={section} key={index} />
         ))}
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     marginHorizontal: 15,
+    backgroundColor: "white",
   },
 
   QuantityButtonsContainer: {

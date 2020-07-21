@@ -14,7 +14,6 @@ export default function Section({ section: { name, items }, navigation }) {
         return (
           <React.Fragment key={index}>
             <Item item={item} navigation={navigation} />
-            {index !== items.length - 1 && <View style={styles.HR} />}
           </React.Fragment>
         );
       })}

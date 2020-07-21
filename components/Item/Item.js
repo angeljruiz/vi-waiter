@@ -1,6 +1,8 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 
+import { ListItem } from "react-native-elements";
+
 import AppText from "../default/AppText";
 
 export default function Item({
@@ -20,13 +22,7 @@ export default function Item({
         })
       }
     >
-      <View style={styles.Item}>
-        <AppText style={styles.Title}>{name}</AppText>
-        <AppText style={styles.Description} numberOfLines={2}>
-          {description}
-        </AppText>
-        <AppText style={styles.Price}>{`$${price / 100}`}</AppText>
-      </View>
+      <ListItem title={name} subtitle={description} bottomDivider />
     </TouchableOpacity>
   );
 }

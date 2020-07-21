@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, View, StyleSheet, ImageBackground } from "react-native";
+import { ScrollView, View, StyleSheet, Image } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -7,6 +7,7 @@ import data from "../../assets/data.json";
 
 import AppText from "../default/AppText";
 import Section from "../Section/Section";
+import { Divider, Card, Text } from "react-native-elements";
 
 const firstMenu = data[0];
 
@@ -14,28 +15,16 @@ function MainPage({ navigation }) {
   return (
     <React.Fragment>
       <ScrollView style={styles.MainPage}>
-        <ImageBackground
-          resizeMode="stretch"
-          source={require("../../assets/vegs.jpg")}
-          style={styles.ImageBackground}
-        >
-          <View style={styles.SettingsButton}>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Feather
-                style={styles.SettingsButton}
-                name="settings"
-                size={32}
-                color="black"
-              />
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
+        <Card>
+          <Image
+            resizeMode="stretch"
+            source={require("../../assets/vegs.jpg")}
+            style={styles.Image}
+          ></Image>
+          <Text h1>La Fiebre</Text>
+          <Text h4>KM 5.8 PR-115, Añasco, 00610</Text>
+        </Card>
         <View style={styles.MainBody}>
-          <AppText style={styles.HeaderText}>La Fiebre</AppText>
-          <AppText style={styles.SubheaderText}>
-            KM 5.8 PR-115, Añasco, 00610
-          </AppText>
-          <View style={styles.HR} />
           <View style={styles.MenuSelectorButton}>
             <AppText style={styles.MenuSelector}>Dinner</AppText>
             <AntDesign name="downcircleo" size={20} color="black" />
@@ -72,10 +61,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  ImageBackground: {
-    padding: 10,
+  Image: {
+    width: "100%",
     height: 250,
-    alignItems: "flex-end",
   },
 
   HeaderText: {

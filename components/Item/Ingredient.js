@@ -1,15 +1,15 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
-import AppText from "../default/AppText";
+import { ListItem } from "react-native-elements";
 
 export default function Ingredient({ Ingredient: { name, price } }) {
   return (
-    <View style={styles.Ingredient}>
-      <View style={styles.Radio} />
-      <AppText style={styles.Title}>{name}</AppText>
-      {price && <AppText style={styles.Price}>{`$${price / 100}`}</AppText>}
-    </View>
+    <ListItem
+      title={name}
+      rightSubtitle={price ? `$${price / 100}` : ""}
+      bottomDivider
+    />
   );
 }
 

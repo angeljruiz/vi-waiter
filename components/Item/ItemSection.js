@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Text } from "react-native-elements";
 
 import AppText from "../default/AppText";
 import Ingredient from "./Ingredient";
@@ -14,10 +15,10 @@ export default function ItemSection({
     <View style={styles.ItemSection}>
       <View style={styles.ItemSectionHeader}>
         <View>
-          <AppText style={styles.SectionText}>{name}</AppText>
-          <AppText style={styles.SectionSubText}>
+          <Text h2>{name}</Text>
+          <Text h4 style={styles.SectionSubText}>
             {required === "true" ? "Required" : "Optional"}
-          </AppText>
+          </Text>
         </View>
         <MaterialCommunityIcons
           name="chevron-down"
@@ -30,7 +31,6 @@ export default function ItemSection({
           return (
             <React.Fragment key={index}>
               <Ingredient Ingredient={ingredient} />
-              {index !== ingredients.length - 1 && <View style={styles.HR} />}
             </React.Fragment>
           );
         })}
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   ItemSectionHeader: {
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 20,
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
   },
 
   SectionSubText: {
-    fontSize: 20,
     color: "grey",
   },
 
