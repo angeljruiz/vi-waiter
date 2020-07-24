@@ -1,40 +1,18 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 
 import { ListItem } from "react-native-elements";
 
-export default function Ingredient({ Ingredient: { name, price } }) {
+export default function Ingredient({ name, price, last }) {
   return (
     <ListItem
       title={name}
-      rightSubtitle={price ? `$${price / 100}` : ""}
-      bottomDivider
+      titleStyle={{}}
+      subtitle={price ? `$${price / 100}` : null}
+      leftIcon={{ name: "radio-button-unchecked", type: "material", size: 40 }}
+      containerStyle={{
+        paddingVertical: 40,
+      }}
+      bottomDivider={!last}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  Ingredient: {
-    padding: 25,
-    flexDirection: "row",
-  },
-  Radio: {
-    width: 40,
-    height: 40,
-    borderRadius: 30,
-    borderWidth: 1,
-    marginRight: 25,
-    borderColor: "grey",
-  },
-
-  Title: {
-    textAlignVertical: "center",
-    fontSize: 25,
-  },
-
-  Price: {
-    fontSize: 22,
-    marginLeft: "auto",
-    textAlignVertical: "center",
-  },
-});

@@ -1,9 +1,10 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import * as Yup from "yup";
+import { ButtonGroup, Card, Text } from "react-native-elements";
 
-import AppText from "../default/AppText";
 import {
   AppForm,
   SubmitButton,
@@ -11,11 +12,16 @@ import {
   AppFormPicker as Picker,
 } from "../default/forms";
 
+import defaultStyles from "../../config/styles";
+
 const categories = [
   { label: "Furniture", value: 1 },
   { label: "Clothing", value: 2 },
   { label: "Camera", value: 3 },
 ];
+
+const buttons = ["Hello", "World", "Buttons"];
+const selectedIndex = 0;
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -23,9 +29,9 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Checkout() {
+  const [selectedIndex, updateIndex] = useState(0);
   return (
     <React.Fragment>
-      <AppText style={styles.Title}>PLEASE USE SQUARE LOL</AppText>
       <AppForm
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
@@ -50,6 +56,30 @@ export default function Checkout() {
           textContentType="password"
         />
         <Picker items={categories} name="category" placeholder="Category" />
+        <Card
+          title={
+            <View style={styles.Title}>
+              <Text h3 style={styles.Test}>
+                Pick a side, asshole!
+              </Text>
+              <MaterialCommunityIcons
+                name="chevron-down"
+                size={64}
+                color={defaultStyles.colors.medium}
+                style={{ marginLeft: "auto" }}
+              />
+            </View>
+          }
+          icon="chevron-down"
+        >
+          <ButtonGroup
+            onPress={updateIndex}
+            selectedIndex={selectedIndex}
+            buttons={buttons}
+            containerStyle={{ height: 100 }}
+            vertical
+          />
+        </Card>
         <SubmitButton title="Login" />
       </AppForm>
     </React.Fragment>
@@ -57,7 +87,7 @@ export default function Checkout() {
 }
 
 const styles = StyleSheet.create({
-  // Title: {
-  //   fontSize: 64,
-  // },
+  Title: {
+    flexDirection: "row",
+  },
 });

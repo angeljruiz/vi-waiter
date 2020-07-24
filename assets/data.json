@@ -161,7 +161,7 @@
               },
               {
                 "name": "Condiments",
-                "required": "true",
+                "required": "false",
                 "maxSelection": "3",
                 "ingredients": [
                   { "name": "Tartar sauce" },

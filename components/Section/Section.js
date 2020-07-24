@@ -1,7 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import AppText from "../default/AppText";
+import { Text } from "react-native-elements";
+
 import Item from "../Item/Item";
 
 export default function Section({ section: { name, items }, navigation }) {
@@ -9,13 +10,11 @@ export default function Section({ section: { name, items }, navigation }) {
 
   return (
     <View style={styles.Section}>
-      <AppText style={styles.Title}>{name}</AppText>
+      <Text h3 style={styles.Title}>
+        {name}
+      </Text>
       {items.map((item, index) => {
-        return (
-          <React.Fragment key={index}>
-            <Item item={item} navigation={navigation} />
-          </React.Fragment>
-        );
+        return <Item item={item} navigation={navigation} key={index} />;
       })}
     </View>
   );
@@ -23,16 +22,7 @@ export default function Section({ section: { name, items }, navigation }) {
 
 const styles = StyleSheet.create({
   Title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 30,
-  },
-
-  HR: {
-    width: "100%",
-    height: 1,
-    backgroundColor: "black",
-    marginVertical: 10,
+    marginVertical: 30,
   },
 
   Section: {

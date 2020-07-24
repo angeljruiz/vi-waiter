@@ -2,97 +2,85 @@ import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { Formik } from "formik";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Card } from "react-native-elements";
+import { Card, Text, Button, Divider } from "react-native-elements";
 
-import AppText from "../default/AppText";
 import ItemSection from "./ItemSection";
-import AppTextInput from "../default/AppTextInput";
+import defaultStyles from "../../config/styles";
 
 export default function ItemPage({ route, navigation }) {
-  const { name, description, price, sections } = route.params.item;
+  const { name, description, sections } = route.params.item;
   const [quantity, setQuantity] = useState(1);
   return (
     <View style={styles.ItemPage}>
       <ScrollView>
         <Card>
-          <AppText style={styles.HeaderText}>{name}</AppText>
-          <AppText style={styles.HeaderDescription}>{description}</AppText>
+          <Text h3>{name}</Text>
+          <Divider style={{ marginVertical: 10 }} />
+          <Text h4 style={styles.HeaderDescription}>
+            {description}
+          </Text>
         </Card>
         {sections.map((section, index) => (
           <ItemSection section={section} key={index} />
         ))}
         <View style={styles.QuantityButtonsContainer}>
           <TouchableOpacity onPress={() => setQuantity(quantity - 1)}>
-            <AppText style={styles.QuantityButtons}>-</AppText>
+            <Text style={styles.QuantityButtons}>-</Text>
           </TouchableOpacity>
-          <AppText style={styles.QuantityLabel}>{quantity}</AppText>
+          <Text style={styles.QuantityLabel}>{quantity}</Text>
           <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
-            <AppText style={styles.QuantityButtons}>+</AppText>
+            <Text style={styles.QuantityButtons}>+</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={() => navigation.navigate("Resturant")}>
-        <View style={styles.AddToCart}>
-          <AppText>{`Add ${quantity} to Cart`}</AppText>
-          <AppText style={styles.CartButtonTotal}>{`$${
-            (price * quantity) / 100
-          }`}</AppText>
-        </View>
-      </TouchableOpacity>
+      <Button
+        title={`Add ${quantity} to Cart`}
+        onPress={(e) => navigation.navigate("Resturant")}
+        buttonStyle={{ marginHorizontal: 15 }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   ItemPage: {
-    paddingBottom: 73,
-  },
-  Header: {
-    paddingHorizontal: 20,
-    paddingVertical: 25,
+    paddingBottom: 60,
   },
 
-  HeaderText: {
-    fontSize: 40,
-    fontWeight: "700",
-  },
   HeaderDescription: {
-    fontSize: 32,
     color: "grey",
   },
 
   AddToCart: {
-    flexDirection: "row",
-    width: "96%",
-    marginHorizontal: "2%",
-    padding: 15,
-    justifyContent: "center",
-    alignItems: "center",
+    marginHorizontal: 15,
+    borderRadius: 20,
   },
 
   CartButtonTotal: {
-    fontSize: 32,
     position: "absolute",
-    right: 30,
+    right: 15,
   },
 
   QuantityButtons: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderWidth: 2,
-    borderRadius: 60,
+    borderRadius: 50,
     borderColor: "lightgrey",
     fontSize: 40,
     textAlign: "center",
     textAlignVertical: "center",
+    lineHeight: 100,
     marginHorizontal: 15,
     backgroundColor: "white",
+    overflow: "hidden",
   },
 
   QuantityButtonsContainer: {
     justifyContent: "center",
     flexDirection: "row",
-    marginBottom: 30,
+    alignItems: "center",
+    paddingVertical: 15,
   },
 
   QuantityLabel: {

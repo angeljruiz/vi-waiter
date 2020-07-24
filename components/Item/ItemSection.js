@@ -1,71 +1,59 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Text } from "react-native-elements";
+import { Entypo } from "@expo/vector-icons";
+import { Text, Card } from "react-native-elements";
 
-import AppText from "../default/AppText";
 import Ingredient from "./Ingredient";
 
 import defaultStyles from "../../config/styles";
+
+function CardTitle({ name, required }) {
+  return (
+    <View
+      style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}
+    >
+      <View style={{ flex: 1 }}>
+        <Text h3>{name}</Text>
+        <Text h4 style={styles.SectionSubText}>
+          {required === "true" ? "Required" : "Optional"}
+        </Text>
+      </View>
+      <Entypo name="chevron-with-circle-down" size={50} color="grey" />
+    </View>
+  );
+}
 
 export default function ItemSection({
   section: { name, required, ingredients },
 }) {
   return (
-    <View style={styles.ItemSection}>
-      <View style={styles.ItemSectionHeader}>
-        <View>
-          <Text h2>{name}</Text>
-          <Text h4 style={styles.SectionSubText}>
-            {required === "true" ? "Required" : "Optional"}
-          </Text>
-        </View>
-        <MaterialCommunityIcons
-          name="chevron-down"
-          size={64}
-          color={defaultStyles.colors.medium}
-        />
-      </View>
-      <View style={styles.SectionBody}>
-        {ingredients.map((ingredient, index) => {
-          return (
-            <React.Fragment key={index}>
-              <Ingredient Ingredient={ingredient} />
-            </React.Fragment>
-          );
-        })}
-      </View>
-    </View>
+    <>
+      <Card
+        title={<CardTitle name={name} required={required} />}
+        containerStyle={styles.CardBody}
+      >
+        <>
+          {ingredients.map((ingredient, index, self) => {
+            return (
+              <Ingredient
+                {...ingredient}
+                key={index}
+                last={index === self.length - 1}
+              />
+            );
+          })}
+        </>
+      </Card>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  ItemSection: {
-    justifyContent: "flex-start",
-    marginBottom: 35,
-  },
-  SectionBody: {
-    paddingHorizontal: 15,
-  },
-  ItemSectionHeader: {
-    backgroundColor: "white",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 20,
-  },
-
-  SectionText: {
-    fontSize: 32,
+  CardBody: {
+    paddingHorizontal: 30,
   },
 
   SectionSubText: {
     color: "grey",
-  },
-
-  HR: {
-    width: "100%",
-    height: 1,
-    backgroundColor: "black",
-    marginVertical: 10,
   },
 });

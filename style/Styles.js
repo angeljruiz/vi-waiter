@@ -10,7 +10,6 @@ export default Styles = StyleSheet.create({
     backgroundColor: "#ECF0F1",
     padding: 12,
   },
-
   textInput: {
     height: 40,
     padding: 5,
@@ -19,7 +18,6 @@ export default Styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-
   button: {
     backgroundColor: "#20a0f0",
     borderWidth: 1,
@@ -27,7 +25,6 @@ export default Styles = StyleSheet.create({
     color: "#f194ff",
     borderColor: "black",
   },
-
   login: {
     paddingBottom: 200,
   },

@@ -1,51 +1,49 @@
 import React from "react";
-import { View, StyleSheet, Button, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import AppText from "../default/AppText";
+import { Text, Button } from "react-native-elements";
+
 import Item from "../Item/Item";
 
 export default function CartPage({ navigation }) {
   return (
     <React.Fragment>
       <View style={styles.Header}>
-        <AppText style={styles.Title}>Order Details</AppText>
-        <AppText style={styles.TableNum}>Table #3</AppText>
+        <Text h2 style={styles.Title}>
+          Order Details
+        </Text>
+        <Text h4 style={styles.TableNum}>
+          Table #3
+        </Text>
       </View>
       <ScrollView style={styles.OrderItems}></ScrollView>
-      <TouchableOpacity onPress={() => navigation.navigate("Checkout")}>
-        <View style={styles.Footer}>
-          <Button title="Checkout" />
-        </View>
-      </TouchableOpacity>
+      <View style={styles.Footer}>
+        <Button
+          title="Checkout"
+          onPress={() => navigation.navigate("Checkout")}
+        />
+      </View>
     </React.Fragment>
   );
 }
 
 const styles = StyleSheet.create({
   Header: {
-    padding: 40,
+    padding: 15,
     flexDirection: "row",
+    alignItems: "baseline",
   },
   Footer: {
-    padding: 40,
+    padding: 15,
   },
   Title: {
-    fontSize: 32,
     marginRight: 15,
   },
 
   TableNum: {
-    fontSize: 24,
     color: "grey",
     textAlignVertical: "bottom",
-  },
-
-  HR: {
-    width: "100%",
-    height: 1,
-    backgroundColor: "black",
-    marginVertical: 10,
   },
 
   OrderItems: {

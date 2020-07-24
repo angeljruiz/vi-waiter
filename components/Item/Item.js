@@ -1,9 +1,7 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 
-import { ListItem } from "react-native-elements";
-
-import AppText from "../default/AppText";
+import { ListItem, Text } from "react-native-elements";
 
 export default function Item({
   navigation,
@@ -22,23 +20,11 @@ export default function Item({
         })
       }
     >
-      <ListItem title={name} subtitle={description} bottomDivider />
+      <ListItem
+        title={<Text h4>{name}</Text>}
+        subtitle={description}
+        bottomDivider
+      />
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  Item: {
-    marginBottom: 15,
-  },
-  Title: {
-    fontSize: 24,
-    marginBottom: 15,
-  },
-
-  Description: {
-    fontSize: 18,
-    color: "grey",
-    marginBottom: 10,
-  },
-});
