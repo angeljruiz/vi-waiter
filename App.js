@@ -12,10 +12,10 @@ import CheckoutPage from "./components/Checkout/Checkout";
 
 const theme = {
   Button: {
-    titleStyle: {
-      fontSize: 28,
-      color: "black",
-    },
+    // titleStyle: {
+    //   fontSize: 28,
+    //   color: "black",
+    // },
   },
 };
 

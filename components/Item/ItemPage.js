@@ -21,7 +21,7 @@ export default function ItemPage({ route, navigation }) {
           </Text>
         </Card>
         {sections.map((section, index) => (
-          <ItemSection section={section} key={index} />
+          <ItemSection {...section} key={index} />
         ))}
         <View style={styles.QuantityButtonsContainer}>
           <TouchableOpacity onPress={() => setQuantity(quantity - 1)}>

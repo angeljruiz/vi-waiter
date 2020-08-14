@@ -24,7 +24,10 @@ function CardTitle({ name, required }) {
 }
 
 export default function ItemSection({
-  section: { name, required, ingredients },
+  name,
+  required,
+  ingredients,
+  maxSelection,
 }) {
   return (
     <>
@@ -49,10 +52,6 @@ export default function ItemSection({
 }
 
 const styles = StyleSheet.create({
-  CardBody: {
-    paddingHorizontal: 30,
-  },
-
   SectionSubText: {
     color: "grey",
   },

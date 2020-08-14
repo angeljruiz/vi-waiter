@@ -23,6 +23,7 @@ export default function Item({
       <ListItem
         title={<Text h4>{name}</Text>}
         subtitle={description}
+        subtitleStyle={{ color: "grey" }}
         bottomDivider
       />
     </TouchableOpacity>
