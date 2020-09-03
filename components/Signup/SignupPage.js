@@ -17,9 +17,9 @@ const validationSchema = Yup.object().shape({
 export default function LoginScreen({ navigation }) {
   const [error, setError] = useState();
 
-  const handleLogin = (values) => {
+  const handleSignup = (values) => {
     axios
-      .post("http://192.168.88.122:3000/login", values) //use localhost for IOS simulator
+      .post("http://192.168.88.122:3000/signup", values) //use localhost for IOS simulator
       .then(async ({ data: { token } }) => {
         const bearer = "Bearer " + token;
         axios.defaults.headers.common["Authorization"] = bearer;
@@ -36,8 +36,8 @@ export default function LoginScreen({ navigation }) {
       });
   };
 
-  const handleSignup = () => {
-    navigation.navigate("Signup");
+  const handleLogin = () => {
+    navigation.navigate("Login");
   };
 
   return (
@@ -45,7 +45,7 @@ export default function LoginScreen({ navigation }) {
       <View style={Styles.login}>
         <AppForm
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => handleLogin(values)}
+          onSubmit={(values) => handleSignup(values)}
           validationSchema={validationSchema}
         >
           {/* {error && ( //Alert from Material UI Lab
@@ -71,8 +71,8 @@ export default function LoginScreen({ navigation }) {
             secureTextEntry
             textContentType="password"
           />
-          <SubmitButton title="Login" />
-          <AppButton title="Signup" onPress={handleSignup} />
+          <SubmitButton title="Signup" />
+          <AppButton title="Login" onPress={handleLogin} />
         </AppForm>
       </View>
     </View>

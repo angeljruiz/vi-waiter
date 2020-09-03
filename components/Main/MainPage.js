@@ -1,19 +1,21 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-import data from "../../assets/data.json";
 
 import Section from "../Section/Section";
 import { Card, Text, Button } from "react-native-elements";
 
 import defaultStyles from "../../config/styles";
-
-const firstMenu = data[0];
+import axios from "axios";
 
 function MainPage({ navigation }) {
+  const [firstMenu, setMenu] = useState();
+
+  useEffect(() => {
+    axios.get("http://192.168.88.122:3000/resturant").then(({ data }) => {
+      setMenu(data);
+    });
+  }, []);
   return (
     <React.Fragment>
       <ScrollView>
@@ -47,9 +49,10 @@ function MainPage({ navigation }) {
               titleStyle={{ fontSize: 28, color: "black" }}
             />
           </View>
-          {firstMenu.sections.map((section, index) => (
-            <Section section={section} navigation={navigation} key={index} />
-          ))}
+          {firstMenu &&
+            firstMenu.sections.map((section, index) => (
+              <Section section={section} navigation={navigation} key={index} />
+            ))}
         </View>
       </ScrollView>
       <Button
