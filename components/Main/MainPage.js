@@ -12,9 +12,11 @@ function MainPage({ navigation }) {
   const [firstMenu, setMenu] = useState();
 
   useEffect(() => {
-    axios.get("http://192.168.88.122:3000/resturant").then(({ data }) => {
-      setMenu(data);
-    });
+    axios
+      .get("https://virtual-waiter-backend.herokuapp.com/resturant")
+      .then(({ data }) => {
+        setMenu(data);
+      });
   }, []);
   return (
     <React.Fragment>

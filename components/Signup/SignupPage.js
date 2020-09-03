@@ -19,7 +19,7 @@ export default function LoginScreen({ navigation }) {
 
   const handleSignup = (values) => {
     axios
-      .post("http://192.168.88.122:3000/signup", values) //use localhost for IOS simulator
+      .post("https://virtual-waiter-backend.herokuapp.com/signup", values) //use localhost for IOS simulator
       .then(async ({ data: { token } }) => {
         const bearer = "Bearer " + token;
         axios.defaults.headers.common["Authorization"] = bearer;
