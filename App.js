@@ -1,17 +1,18 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { ThemeProvider } from "react-native-elements";
+import React, {useState} from 'react';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+
+import BottomNavigator from './src/navigation/BottomNavigator';
+import reducer from './src/reducers';
+
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 import axios from "axios";
 import AsyncStorage from "@react-native-community/async-storage";
 
-import MainPage from "./components/Main/MainPage";
-import LoginPage from "./components/Login/LoginPage";
-import SignupPage from "./components/Signup/SignupPage";
-import ItemPage from "./components/Item/ItemPage";
-import CartPage from "./components/Cart/CartPage";
-import CheckoutPage from "./components/Checkout/Checkout";
 
 const theme = {
   Button: {
@@ -22,7 +23,7 @@ const theme = {
   },
 };
 
-const Stack = createStackNavigator();
+
 
 (async () => {
   let token = await AsyncStorage.getItem("token");
@@ -35,19 +36,18 @@ const Stack = createStackNavigator();
   }
 })();
 
+const middleware = applyMiddleware(thunkMiddleware)
+const store = createStore(reducer, middleware)
+
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="Signup" component={SignupPage} />
-          <Stack.Screen name="Resturant" component={MainPage} />
-          <Stack.Screen name="Item" component={ItemPage} />
-          <Stack.Screen name="Cart" component={CartPage} />
-          <Stack.Screen name="Checkout" component={CheckoutPage} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ThemeProvider>
+    <React.Fragment>
+			<IconRegistry icons={[EvaIconsPack]}/>
+			<ApplicationProvider {...eva} theme={eva.light}>
+				<Provider store={store}>
+					<BottomNavigator />
+				</Provider>
+			</ApplicationProvider>
+    </React.Fragment>
   );
 }

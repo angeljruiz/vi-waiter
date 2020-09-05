@@ -57,11 +57,6 @@ function MainPage({ navigation }) {
             ))}
         </View>
       </ScrollView>
-      <Button
-        title={`View Cart`}
-        buttonStyle={styles.ViewCart}
-        onPress={() => navigation.navigate("Cart")}
-      />
     </React.Fragment>
   );
 }

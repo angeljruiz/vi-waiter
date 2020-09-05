@@ -35,7 +35,7 @@ export default function ItemPage({ route, navigation }) {
       </ScrollView>
       <Button
         title={`Add ${quantity} to Cart`}
-        onPress={(e) => navigation.navigate("Resturant")}
+        onPress={(e) => navigation.navigate("Restaurant")}
         buttonStyle={{ marginHorizontal: 15 }}
       />
     </View>
