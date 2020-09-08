@@ -14,9 +14,9 @@ export default function ItemPage({ route, navigation }) {
     <View style={styles.ItemPage}>
       <ScrollView>
         <Card>
-          <Text h3>{name}</Text>
+          <Text style={styles.Name}>{name}</Text>
           <Divider style={{ marginVertical: 10 }} />
-          <Text h4 style={styles.HeaderDescription}>
+          <Text style={styles.HeaderDescription}>
             {description}
           </Text>
         </Card>
@@ -45,6 +45,11 @@ export default function ItemPage({ route, navigation }) {
 const styles = StyleSheet.create({
   ItemPage: {
     paddingBottom: 60,
+    paddingHorizontal: 0,
+  },
+  Name: {
+    fontSize: 20,
+    fontWeight: '600',
   },
 
   HeaderDescription: {
@@ -62,12 +67,12 @@ const styles = StyleSheet.create({
   },
 
   QuantityButtons: {
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
     borderWidth: 2,
     borderRadius: 50,
     borderColor: "lightgrey",
-    fontSize: 40,
+    fontSize: 20,
     textAlign: "center",
     textAlignVertical: "center",
     lineHeight: 100,
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
   },
 
   QuantityLabel: {
-    fontSize: 40,
+    fontSize: 20,
     textAlignVertical: "center",
   },
 });

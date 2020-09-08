@@ -13,12 +13,12 @@ function CardTitle({ name, required }) {
       style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}
     >
       <View style={{ flex: 1 }}>
-        <Text h3>{name}</Text>
-        <Text h4 style={styles.SectionSubText}>
+        <Text>{name}</Text>
+        <Text style={styles.SectionSubText}>
           {required === "true" ? "Required" : "Optional"}
         </Text>
       </View>
-      <Entypo name="chevron-with-circle-down" size={50} color="grey" />
+      <Entypo name="chevron-with-circle-down" size={18} color="grey" />
     </View>
   );
 }
@@ -33,6 +33,7 @@ export default function ItemSection({
     <>
       <Card
         title={<CardTitle name={name} required={required} />}
+        titleStyle={styles.Title}
         containerStyle={styles.CardBody}
       >
         <>
@@ -52,7 +53,15 @@ export default function ItemSection({
 }
 
 const styles = StyleSheet.create({
+  CardBody: {
+    backgroundColor: defaultStyles.colors.background,
+  },
   SectionSubText: {
     color: "grey",
+  },
+  Title: {
+    fontSize: 14,
+    fontWeight: '600',
+    alignSelf: 'flex-start'
   },
 });

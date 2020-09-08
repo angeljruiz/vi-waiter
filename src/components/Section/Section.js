@@ -10,7 +10,7 @@ export default function Section({ section: { name, items }, navigation }) {
 
   return (
     <View style={styles.Section}>
-      <Text h3 style={styles.Title}>
+      <Text style={styles.Title}>
         {name}
       </Text>
       {items.map((item, index) => {
@@ -21,11 +21,14 @@ export default function Section({ section: { name, items }, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  Title: {
-    marginVertical: 30,
-  },
 
   Section: {
     marginBottom: 20,
+    paddingHorizontal: 0,
+  },
+
+  Title: {
+    fontSize: 24,
+    fontWeight: '500',
   },
 });

@@ -20,7 +20,7 @@ function MainPage({ navigation }) {
   }, []);
   return (
     <React.Fragment>
-      <ScrollView>
+      <ScrollView style={styles.ScrollView}>
         <Image
           resizeMode="stretch"
           source={require("../../assets/vegs.jpg")}
@@ -31,26 +31,14 @@ function MainPage({ navigation }) {
           titleStyle={styles.Title}
           containerStyle={styles.MainCard}
         >
-          <Text style={styles.Subtitle} h4>
-            KM 5.8 PR-115, Añasco, 00610
-          </Text>
+        <Text style={styles.StoreInfo}>
+          Store Info
+        </Text>
+        <Text style={styles.Address}>
+          KM 5.8 PR-115, Añasco, 00610
+        </Text>
         </Card>
         <View style={styles.MainBody}>
-          <View style={styles.MenuSelectorButton}>
-            <Button
-              icon={
-                <MaterialCommunityIcons
-                  name="chevron-down"
-                  size={32}
-                  color={defaultStyles.colors.medium}
-                />
-              }
-              iconRight
-              title="Dinner"
-              type="outline"
-              titleStyle={{ fontSize: 28, color: "black" }}
-            />
-          </View>
           {firstMenu &&
             firstMenu.sections.map((section, index) => (
               <Section section={section} navigation={navigation} key={index} />
@@ -65,7 +53,11 @@ export default MainPage;
 
 const styles = StyleSheet.create({
   Header: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 0,
+  },
+
+  ScrollView: {
+    backgroundColor: defaultStyles.colors.background
   },
 
   MainCard: {
@@ -75,15 +67,25 @@ const styles = StyleSheet.create({
   },
 
   Title: {
-    fontSize: 32,
+    fontSize: 24,
+    fontWeight: '600',
+    alignSelf: 'flex-start'
   },
 
-  Subtitle: {
+  StoreInfo: {
+    fontSize: 14,
+    fontWeight: '600',
+    paddingVertical: 5,
+  },
+
+  Address: {
+    fontSize: 14,
     color: "grey",
   },
 
   MainBody: {
     paddingHorizontal: 15,
+    backgroundColor: defaultStyles.colors.background
   },
 
   Image: {
