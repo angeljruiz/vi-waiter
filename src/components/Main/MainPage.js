@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { updateMenu } from '../../actions/app';
+
 import { ScrollView, View, StyleSheet, Image, StatusBar } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -8,7 +12,7 @@ import { Card, Text, Button } from "react-native-elements";
 import defaultStyles from "../../config/styles";
 import axios from "axios";
 
-function MainPage({ navigation }) {
+const MainPage = ({ navigation, state, updateMenu }) => {
   const [firstMenu, setMenu] = useState();
 
   useEffect(() => {
@@ -16,6 +20,7 @@ function MainPage({ navigation }) {
       .get("https://virtual-waiter-backend.herokuapp.com/resturant")
       .then(({ data }) => {
         setMenu(data);
+        console.log(data);
       });
   }, []);
   return (
@@ -49,8 +54,6 @@ function MainPage({ navigation }) {
     </React.Fragment>
   );
 }
-
-export default MainPage;
 
 const styles = StyleSheet.create({
   Header: {
@@ -108,3 +111,18 @@ const styles = StyleSheet.create({
     right: 30,
   },
 });
+
+const mapDispatchToProps = dispatch => {
+	return bindActionCreators({ updateMenu }, dispatch)
+}
+
+const mapStateToProps = state => {
+	return {
+    state: state,
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)( MainPage );

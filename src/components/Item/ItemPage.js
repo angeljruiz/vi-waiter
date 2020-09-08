@@ -13,7 +13,7 @@ export default function ItemPage({ route, navigation }) {
   const [quantity, setQuantity] = useState(1);
   return (
     <View style={styles.ItemPage}>
-      <StatusBar barStyle="light-content" translucent={true} />
+      <StatusBar barStyle="dark-content" translucent={true} />
       <TopHeader title="Menu" leftIcon="arrow-back" rightIcon="none"
         onPress={()=>navigation.goBack()} />
       <Divider/>

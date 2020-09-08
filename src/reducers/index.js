@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { LOGIN, LOGOUT, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_LOGINMODAL, UPDATE_USER, APP_LOGOUT } from '../actions/user';
+import { UPDATE_MENU} from '../actions/app';
 
 const userReducer = (state = {}, action) => {
 	console.log(action.type);
@@ -24,6 +25,8 @@ const userReducer = (state = {}, action) => {
 
 const appReducer = (state = {}, action) => {
 	switch (action.type) {
+		case UPDATE_MENU:
+			return {...state, menu:action.payload};
 		case UPDATE_LOGINMODAL:
 			return {...state, loginModal:action.payload};
 		case APP_LOGOUT:
