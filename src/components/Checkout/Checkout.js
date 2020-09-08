@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, StatusBar } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import * as Yup from "yup";
 import { ButtonGroup, Card, Text } from "react-native-elements";
+import TopHeader from '../../navigation/TopHeader.component';
 
 import {
   AppForm,
@@ -28,10 +29,13 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 
-export default function Checkout() {
+export default function Checkout({navigation}) {
   const [selectedIndex, updateIndex] = useState(0);
   return (
-    <React.Fragment>
+    <View style={styles.Container}>
+    <StatusBar barStyle="dark-content" translucent={true} />
+    <TopHeader title="Checkout" leftIcon="arrow-back" rightIcon="none"
+      onPress={()=>navigation.goBack()} />
       <AppForm
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
@@ -82,11 +86,16 @@ export default function Checkout() {
         </Card>
         <SubmitButton title="Login" />
       </AppForm>
-    </React.Fragment>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  Container: {
+    paddingBottom: 100,
+    paddingTop: 40,
+    paddingHorizontal: 0,
+  },
   Title: {
     flexDirection: "row",
   },

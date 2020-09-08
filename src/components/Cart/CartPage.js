@@ -1,19 +1,21 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, StatusBar } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { Text, Button } from "react-native-elements";
+import { Text, Button, Divider } from "react-native-elements";
 
 import Item from "../Item/Item";
+import TopHeader from '../../navigation/TopHeader.component';
 
 export default function CartPage({ navigation }) {
   return (
-    <React.Fragment>
+    <View style={styles.Container}>
+      <StatusBar barStyle="dark-content" translucent={true} />
+      <TopHeader title="Order Details" leftIcon="none" rightIcon="none"
+        onPress={()=>navigation.goBack()} />
+      <Divider/>
       <View style={styles.Header}>
-        <Text h2 style={styles.Title}>
-          Order Details
-        </Text>
-        <Text h4 style={styles.TableNum}>
+        <Text style={styles.TableNum}>
           Table #3
         </Text>
       </View>
@@ -24,11 +26,16 @@ export default function CartPage({ navigation }) {
           onPress={() => navigation.navigate("Checkout")}
         />
       </View>
-    </React.Fragment>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  Container: {
+    paddingBottom: 100,
+    paddingTop: 40,
+    paddingHorizontal: 0,
+  },
   Header: {
     padding: 15,
     flexDirection: "row",

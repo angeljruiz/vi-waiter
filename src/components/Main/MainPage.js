@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet, Image } from "react-native";
+import { ScrollView, View, StyleSheet, Image, StatusBar } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Section from "../Section/Section";
@@ -20,6 +20,7 @@ function MainPage({ navigation }) {
   }, []);
   return (
     <React.Fragment>
+      <StatusBar barStyle="light-content" translucent={true} />
       <ScrollView style={styles.ScrollView}>
         <Image
           resizeMode="stretch"

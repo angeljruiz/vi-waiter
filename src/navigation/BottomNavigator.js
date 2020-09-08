@@ -8,6 +8,8 @@ import { SafeAreaView, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import * as Color from '../config/colors';
 
@@ -53,12 +55,15 @@ class BottomNavigator extends React.Component {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             switch (route.name){
-              case "MENU": iconName= focused? 'search' : 'search'; break;
-              case "CART": iconName= focused? 'qrcode' : 'qrcode'; break;
-              case "ACCOUNT": iconName= focused? 'user' : 'user-o'; size=focused?size:size-5; break;
+              case "MENU": iconName= focused? 'restaurant' : 'restaurant'; 
+                return <MaterialIcons name={iconName} size={size} color={color} />;
+              case "CART": iconName= focused? 'cart' : 'cart-outline'; 
+                return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+              case "ACCOUNT": iconName= focused? 'user' : 'user-o'; size=focused?size:size-5; 
+                return <FontAwesomeIcons name={iconName} size={size} color={color} />;
             }
             // You can return any component that you like here!
-            return <FontAwesomeIcons name={iconName} size={size} color={color} />;
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}       
         tabBarOptions={{

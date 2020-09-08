@@ -1,17 +1,22 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, StatusBar } from "react-native";
 import { Formik } from "formik";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, Text, Button, Divider } from "react-native-elements";
 
 import ItemSection from "./ItemSection";
 import defaultStyles from "../../config/styles";
+import TopHeader from '../../navigation/TopHeader.component';
 
 export default function ItemPage({ route, navigation }) {
   const { name, description, sections } = route.params.item;
   const [quantity, setQuantity] = useState(1);
   return (
     <View style={styles.ItemPage}>
+      <StatusBar barStyle="light-content" translucent={true} />
+      <TopHeader title="Menu" leftIcon="arrow-back" rightIcon="none"
+        onPress={()=>navigation.goBack()} />
+      <Divider/>
       <ScrollView>
         <Card>
           <Text style={styles.Name}>{name}</Text>
@@ -44,7 +49,8 @@ export default function ItemPage({ route, navigation }) {
 
 const styles = StyleSheet.create({
   ItemPage: {
-    paddingBottom: 60,
+    paddingBottom: 100,
+    paddingTop: 40,
     paddingHorizontal: 0,
   },
   Name: {
