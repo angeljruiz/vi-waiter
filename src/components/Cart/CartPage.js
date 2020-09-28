@@ -14,6 +14,7 @@ import defaultStyles from "../../config/styles";
 
 export default function CartPage({ navigation }) {
   const app= useSelector(state => state.app );
+
   return (
     <View style={styles.Container}>
       <StatusBar barStyle="dark-content" translucent={true} />

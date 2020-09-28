@@ -44,6 +44,9 @@ export default function ItemPage({ route, navigation }) {
           <Text style={styles.HeaderDescription}>
             {description}
           </Text>
+          <Text style={styles.HeaderDescription}>
+            ${parseInt(price)/100}
+          </Text>
         </Card>
         {sections.map((section, index) => (
           <ItemSection {...section} key={index} sectionIndex={index}/>

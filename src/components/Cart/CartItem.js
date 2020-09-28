@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateItem } from '../../actions/app';
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
 
-import { ListItem, Avatar, Text, Image } from "react-native-elements";
+import { ListItem, Avatar, Text, Image, Icon } from "react-native-elements";
 import defaultStyles from "../../config/styles";
 
 const CartItemIngredient = (section) => {
@@ -22,6 +22,51 @@ const CartItemIngredient = (section) => {
 
 }
 
+const CartPriceIngredient = (section) => {
+    const ingredients=section.ingredients;
+    var price=0;
+    for(var i=0; i<ingredients.length; ++i){
+        if(ingredients[i].selected==="true"){
+          if(ingredients[i].price){
+            price+=parseInt(ingredients[i].price)
+          }
+        }
+    }
+    return(price)
+}
+
+const CartPriceSections = (sections) => {
+    var price=0;
+    for(var i=0; i<sections.length; ++i){ 
+        price += CartPriceIngredient(sections[i]);
+    }
+    return(price)
+}
+
+const QuantitySelect = ({onPressAdd, onPressMinus, onPressDelete, quantity}) => {
+    return(
+        <View style={styles.Quantity}>
+        <Icon
+            name='plus'
+            type='font-awesome'
+            iconStyle={styles.Icon}
+            onPress={onPressAdd} />
+        <Text>{quantity}</Text>
+        <Icon
+            name='minus'
+            type='font-awesome'
+            iconStyle={styles.Icon}
+            onPress={onPressMinus} />
+        <Icon
+            name='trash'
+            type='font-awesome'
+            iconStyle={styles.Icon}
+            onPress={onPressDelete} />
+        </View>
+
+    )
+}
+
 export default function CartItem({
   navigation,
   quantity,
@@ -29,16 +74,9 @@ export default function CartItem({
 }) {
   const dispatch = useDispatch();
   const SelectItem = () => {
-    const item = {
-      name,
-      description,
-      price,
-      sections,
-      image,
-    };
-    dispatch(updateItem(item));
-    navigation.navigate("Item")
+
   }
+  var section_price=CartPriceSections(sections);
   return (
     <TouchableOpacity
       onPress={SelectItem}
@@ -47,6 +85,9 @@ export default function CartItem({
         containerStyle={styles.Container}
         bottomDivider
       >
+        <ListItem.Subtitle style={styles.Quantity}>
+            {quantity}
+        </ListItem.Subtitle>
         <ListItem.Content>
           <ListItem.Title style={styles.ItemName}>
             {name}
@@ -64,12 +105,10 @@ export default function CartItem({
                 )}
 
           })}
-          <ListItem.Subtitle style={styles.ItemDescription}>
-            Quantity: {quantity}
-          </ListItem.Subtitle>
         </ListItem.Content>
-
-        <ListItem.Chevron color="white" />
+        <ListItem.Title style={styles.Price}>
+            ${price/100 + section_price/100}
+          </ListItem.Title>
       </ListItem>
     </TouchableOpacity>
   );
@@ -79,6 +118,14 @@ const styles = StyleSheet.create({
   Container: {
     paddingHorizontal: 0,
     backgroundColor: defaultStyles.colors.background
+  },
+  Quantity: {
+    paddingHorizontal: 0,
+    backgroundColor: defaultStyles.colors.background,
+    flexDirection: 'row',
+    paddingHorizontal: 5,
+    borderWidth: 1,
+    borderColor: 'black'
   },
   ItemDescription: {
     color: "grey",
@@ -90,9 +137,20 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     color: 'black'
   },
+  Price: {
+    fontSize: 14,
+    fontWeight: '600',
+    alignSelf: 'flex-start',
+    color: 'black'
+  },
   ItemImage : {
     width: 50,
     height: 50,
     padding: 0,
+  },
+  Icon: {
+    color: 'grey',
+    fontSize:20,
+    paddingHorizontal:5
   }
 });

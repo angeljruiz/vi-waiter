@@ -37,9 +37,11 @@ export default function Item({
           <ListItem.Subtitle style={styles.ItemDescription}>
             {description}
           </ListItem.Subtitle>
+          <ListItem.Subtitle style={styles.ItemDescription}>
+            ${parseInt(price)/100}
+          </ListItem.Subtitle>
         </ListItem.Content>
         {image && <Image source={{uri: image}} style={styles.ItemImage}/>}
-        <ListItem.Chevron color="white" />
       </ListItem>
     </TouchableOpacity>
   );
