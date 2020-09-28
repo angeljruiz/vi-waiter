@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { updateMenu } from '../../actions/app';
 
 import { ScrollView, View, StyleSheet, Image, StatusBar } from "react-native";
@@ -12,41 +11,47 @@ import { Card, Text, Button } from "react-native-elements";
 import defaultStyles from "../../config/styles";
 import axios from "axios";
 
-const MainPage = ({ navigation, state, updateMenu }) => {
-  const [firstMenu, setMenu] = useState();
+const MainPage = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const app = useSelector(state=>state.app)
 
   useEffect(() => {
     axios
       .get("https://virtual-waiter-backend.herokuapp.com/resturant")
       .then(({ data }) => {
-        setMenu(data);
-        console.log(data);
+        dispatch(updateMenu(data))
+        console.log(app.menu);
       });
   }, []);
   return (
     <React.Fragment>
       <StatusBar barStyle="light-content" translucent={true} />
       <ScrollView style={styles.ScrollView}>
+        {app.menu &&
         <Image
           resizeMode="stretch"
-          source={require("../../assets/vegs.jpg")}
+          source={{uri: app.menu.logo}}
           style={styles.Image}
         />
+        }
+        {app.menu &&
         <Card
-          title="La Fiebre"
-          titleStyle={styles.Title}
           containerStyle={styles.MainCard}
         >
-        <Text style={styles.StoreInfo}>
-          Store Info
-        </Text>
-        <Text style={styles.Address}>
-          KM 5.8 PR-115, Añasco, 00610
-        </Text>
+          <Card.Title style={styles.Title}>
+            {app.menu.name}
+          </Card.Title>
+          <Text style={styles.StoreInfo}>
+            Store Info
+          </Text>
+          <Text style={styles.Address}>
+            KM 5.8 PR-115, Añasco, 00610
+          </Text>
         </Card>
+        }
         <View style={styles.MainBody}>
-          {firstMenu &&
-            firstMenu.sections.map((section, index) => (
+          {app.menu &&
+            app.menu.sections.map((section, index) => (
               <Section section={section} navigation={navigation} key={index} />
             ))}
         </View>
@@ -89,7 +94,7 @@ const styles = StyleSheet.create({
 
   MainBody: {
     paddingHorizontal: 15,
-    backgroundColor: defaultStyles.colors.background
+    backgroundColor: defaultStyles.colors.background,
   },
 
   Image: {
@@ -112,17 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateMenu }, dispatch)
-}
-
-const mapStateToProps = state => {
-	return {
-    state: state,
-	}
-}
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)( MainPage );
+export default  MainPage ;

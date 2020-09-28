@@ -6,9 +6,26 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import { ListItem, Avatar, Text, Image } from "react-native-elements";
 import defaultStyles from "../../config/styles";
 
-export default function Item({
+const CartItemIngredient = (section) => {
+  const ingredients=section.ingredients;
+  var buffer="";
+  for(var i=0; i<ingredients.length; ++i){
+      if(ingredients[i].selected==="true"){
+        if(buffer===""){
+          buffer = ingredients[i].name
+        } else {
+            buffer = buffer + "; " + ingredients[i].name
+        }
+      }
+  }
+  return(buffer)
+
+}
+
+export default function CartItem({
   navigation,
-  item: { name, description, price, sections, image },
+  quantity,
+  item: { name, price, sections, image },
 }) {
   const dispatch = useDispatch();
   const SelectItem = () => {
@@ -34,11 +51,24 @@ export default function Item({
           <ListItem.Title style={styles.ItemName}>
             {name}
           </ListItem.Title>
+          {sections && 
+            sections.map((section, index)=>{
+                const buffer = CartItemIngredient(section);
+                if( buffer === "" ){
+                    return (null)
+                } else {
+                return (
+                    <ListItem.Subtitle style={styles.ItemDescription}>
+                    {section.name}: {CartItemIngredient(section)}
+                  </ListItem.Subtitle>
+                )}
+
+          })}
           <ListItem.Subtitle style={styles.ItemDescription}>
-            {description}
+            Quantity: {quantity}
           </ListItem.Subtitle>
         </ListItem.Content>
-        {image && <Image source={{uri: image}} style={styles.ItemImage}/>}
+
         <ListItem.Chevron color="white" />
       </ListItem>
     </TouchableOpacity>
