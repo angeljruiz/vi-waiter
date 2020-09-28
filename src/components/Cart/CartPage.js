@@ -1,19 +1,69 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { updateCart, addToCart } from '../../actions/app';
+import { updateCart, addToCart, updatePrice } from '../../actions/app';
 
-import { View, StyleSheet, ScrollView, StatusBar } from "react-native";
+import { View, StyleSheet, ScrollView, StatusBar} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { Text, Button, Divider } from "react-native-elements";
 
-import CartItem from "../Cart/CartItem";
+import CartItem, {CartPriceIngredient, CartPriceSections} from "../Cart/CartItem";
 import TopHeader from '../../navigation/TopHeader.component';
 
 import defaultStyles from "../../config/styles";
+import {toCurrency} from "../../config/functions";
+
+const taxRate=0.06;
+const feeRate=0.10;
 
 export default function CartPage({ navigation }) {
   const app= useSelector(state => state.app );
+  const dispatch = useDispatch();
+  const TotalPrice = (cart) => {
+    console.log(cart);
+    var price=0;
+    var itemPrice;
+    if(cart){
+      for(var i=0; i<cart.length; ++i){ 
+        itemPrice = parseInt( cart[i].item.price ) 
+         + CartPriceSections(cart[i].item.sections);
+        price += itemPrice * parseInt(cart[i].quantity.quantity);
+      }
+    }
+    var tax=Math.round(price * taxRate)
+    var fee=Math.round(price * feeRate)
+    var total=price+tax+fee;
+    return(
+      {"Subtotal":price, "Taxes": tax, "Fee": fee, "Total": total}
+      )
+  }
+
+  const TotalPriceList = (cart) => {
+    const sum=TotalPrice(cart);
+    return(
+      <View style={styles.Footer}>
+      <Text style={styles.Price}>
+        Subtotal: &#09;{toCurrency(sum.Subtotal)}
+      </Text>
+      <Text style={styles.Price}>
+        Service Fees: &#09;{toCurrency(sum.Fee)}
+      </Text>
+      <Text style={styles.Price}>
+        Taxes: &#09;{toCurrency(sum.Taxes)}
+      </Text>
+      <Divider/>
+      <Text style={styles.PriceTotal}>
+        Total: &#09;{toCurrency(sum.Total)}
+      </Text>
+    </View>
+    )
+  }
+
+  const onPressCheckout = () => {
+    const sum=TotalPrice(app.cart);
+    dispatch(updatePrice(sum))
+    navigation.navigate("Checkout")
+  }
 
   return (
     <View style={styles.Container}>
@@ -34,9 +84,10 @@ export default function CartPage({ navigation }) {
         }
       </ScrollView>
       <View style={styles.Footer}>
+        {TotalPriceList(app.cart)}
         <Button
-          title="Checkout"
-          onPress={() => navigation.navigate("Checkout")}
+          title="Checkout" 
+          onPress={onPressCheckout}
         />
       </View>
     </View>
@@ -72,6 +123,21 @@ const styles = StyleSheet.create({
   TableNum: {
     color: "grey",
     textAlignVertical: "bottom",
+  },
+  Price: {
+    color: "grey",
+    textAlignVertical: "bottom",
+    textAlign: "right",
+    paddingBottom: 5,
+
+  },
+  PriceTotal: {
+    color: "black",
+    textAlignVertical: "bottom",
+    textAlign: "right",
+    fontWeight: "600",
+    paddingVertical: 10,
+
   },
 
   OrderItems: {

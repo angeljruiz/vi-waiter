@@ -3,6 +3,7 @@
 export const UPDATE_MENU = 'UPDATE_MENU'
 export const UPDATE_ITEM = 'UPDATE_ITEM'
 export const UPDATE_CART = 'UPDATE_CART'
+export const UPDATE_PRICE = 'UPDATE_PRICE'
 export const ADDTO_CART = 'ADDTO_CART'
 
 
@@ -26,6 +27,13 @@ export const updateCart = cart => {
 	return {
 		type: UPDATE_CART,
 		payload: cart
+	}
+}
+
+export const updatePrice = price => {
+	return {
+		type: UPDATE_PRICE,
+		payload: price
 	}
 }
 

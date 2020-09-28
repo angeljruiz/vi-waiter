@@ -5,6 +5,7 @@ import { TouchableOpacity, StyleSheet, View } from "react-native";
 
 import { ListItem, Avatar, Text, Image, Icon } from "react-native-elements";
 import defaultStyles from "../../config/styles";
+import {toCurrency} from "../../config/functions";
 
 const CartItemIngredient = (section) => {
   const ingredients=section.ingredients;
@@ -22,7 +23,7 @@ const CartItemIngredient = (section) => {
 
 }
 
-const CartPriceIngredient = (section) => {
+export const CartPriceIngredient = (section) => {
     const ingredients=section.ingredients;
     var price=0;
     for(var i=0; i<ingredients.length; ++i){
@@ -35,36 +36,12 @@ const CartPriceIngredient = (section) => {
     return(price)
 }
 
-const CartPriceSections = (sections) => {
+export const CartPriceSections = (sections) => {
     var price=0;
     for(var i=0; i<sections.length; ++i){ 
         price += CartPriceIngredient(sections[i]);
     }
     return(price)
-}
-
-const QuantitySelect = ({onPressAdd, onPressMinus, onPressDelete, quantity}) => {
-    return(
-        <View style={styles.Quantity}>
-        <Icon
-            name='plus'
-            type='font-awesome'
-            iconStyle={styles.Icon}
-            onPress={onPressAdd} />
-        <Text>{quantity}</Text>
-        <Icon
-            name='minus'
-            type='font-awesome'
-            iconStyle={styles.Icon}
-            onPress={onPressMinus} />
-        <Icon
-            name='trash'
-            type='font-awesome'
-            iconStyle={styles.Icon}
-            onPress={onPressDelete} />
-        </View>
-
-    )
 }
 
 export default function CartItem({
@@ -107,7 +84,7 @@ export default function CartItem({
           })}
         </ListItem.Content>
         <ListItem.Title style={styles.Price}>
-            ${price/100 + section_price/100}
+            {toCurrency((parseInt(price) + section_price)*quantity)}
           </ListItem.Title>
       </ListItem>
     </TouchableOpacity>

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { LOGIN, LOGOUT, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_LOGINMODAL, UPDATE_USER, APP_LOGOUT } from '../actions/user';
-import { UPDATE_MENU, UPDATE_ITEM, UPDATE_CART, ADDTO_CART} from '../actions/app';
+import { UPDATE_MENU, UPDATE_ITEM, UPDATE_CART, UPDATE_PRICE, ADDTO_CART} from '../actions/app';
 
 const userReducer = (state = {}, action) => {
 	console.log(action.type);
@@ -31,6 +31,8 @@ const appReducer = (state = {}, action) => {
 			return {...state, item:action.payload}
 		case UPDATE_CART:
 			return {...state, cart:action.payload};
+		case UPDATE_PRICE:
+			return {...state, price:action.payload};
 		case ADDTO_CART:
 			return {...state, cart:{...state.cart, ...action.payload}};	
 		case UPDATE_LOGINMODAL:
