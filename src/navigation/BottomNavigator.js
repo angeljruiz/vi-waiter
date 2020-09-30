@@ -59,8 +59,8 @@ class BottomNavigator extends React.Component {
                 return <MaterialIcons name={iconName} size={size} color={color} />;
               case "CART": iconName= focused? 'cart' : 'cart-outline'; 
                 return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-              case "ACCOUNT": iconName= focused? 'user' : 'user-o'; size=focused?size:size-5; 
-                return <FontAwesomeIcons name={iconName} size={size} color={color} />;
+//              case "ACCOUNT": iconName= focused? 'user' : 'user-o'; size=focused?size:size-5; 
+//                return <FontAwesomeIcons name={iconName} size={size} color={color} />;
             }
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -72,11 +72,13 @@ class BottomNavigator extends React.Component {
         }}>
         <BottomTab.Screen name='MENU' component={MenuStackScreen}/>
         <BottomTab.Screen name='CART' component={CartStackScreen}/>
-        <BottomTab.Screen name='ACCOUNT' component={AccountStackScreen}/>
+
       </BottomTab.Navigator>
     </NavigationContainer>
   );}
 };
+
+// <BottomTab.Screen name='ACCOUNT' component={AccountStackScreen}/>
 
 const styles=StyleSheet.create({
   background:{

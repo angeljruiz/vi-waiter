@@ -76,7 +76,7 @@ export default function CartItem({
                     return (null)
                 } else {
                 return (
-                    <ListItem.Subtitle style={styles.ItemDescription}>
+                    <ListItem.Subtitle style={styles.ItemDescription} key={index}>
                     {section.name}: {CartItemIngredient(section)}
                   </ListItem.Subtitle>
                 )}
